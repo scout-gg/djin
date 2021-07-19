@@ -1,0 +1,13 @@
+[package]
+name = "djin_utils"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+eyre = "^0"
+flate2 = "^1"
+bytes = "^1"
+protocol = { git = "https://github.com/oknozor/protocol" }
+protocol-derive = { git = "https://github.com/oknozor/protocol" }
