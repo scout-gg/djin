@@ -1,6 +1,14 @@
-/// Player colour data.
 #[derive(Protocol, Debug, Clone, PartialEq, Eq)]
 pub struct ColorTable {
+    pub color_table_size: u16,
+    #[protocol(length_prefix(elements(color_table_size)))]
+    pub colors: Vec<Color>
+
+}
+
+/// Player colour data.
+#[derive(Protocol, Debug, Clone, PartialEq, Eq)]
+pub struct Color {
     pub id: i32,
     /// Base palette index for this player colour.
     pub base: u8,
