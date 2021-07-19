@@ -1,32 +1,28 @@
-use protocol::Parcel;
-use std::io::Read;
-use bytes::Buf;
-
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct SoundTable {
-    pub sound_size: u16,
-    #[protocol(length_prefix(elements(sound_size)))]
-    pub sounds: Vec<Sound>
-
+    pub sound_table_size: u16,
+    #[protocol(length_prefix(elements(sound_table_size)))]
+    pub sounds: Vec<Sound>,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct Sound {
-    /// Unique ID for this sound.
     pub id: u16,
     pub play_delay: i16,
-    pub sound_item_size: u16,
-    pub cache_time: i32,
+    pub file_count: u16,
+    pub cache_time: u32,
     pub total_probability: u16,
-    #[protocol(length_prefix(elements(sound_item_size)))]
+    #[protocol(length_prefix(elements(file_count)))]
     pub items: Vec<SoundItem>,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct SoundItem {
-    #[protocol(fixed_length(13))]
+    pub unknown: i16,
+    pub filname_len: u16,
+    #[protocol(length_prefix(elements(filname_len)))]
     pub filename: String,
-    pub resource_id: i32,
+    pub resource_id: u32,
     pub probability: i16,
     pub civilization: i16,
     pub icon_set: i16,

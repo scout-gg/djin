@@ -1,5 +1,5 @@
 [package]
-name = "djin_utils"
+name = "djin"
 version = "0.1.0"
 edition = "2018"
 
