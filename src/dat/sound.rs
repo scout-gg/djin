@@ -1,3 +1,5 @@
+use crate::dat::common::DeString;
+
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct SoundTable {
     pub sound_table_size: u16,
@@ -18,10 +20,7 @@ pub struct Sound {
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct SoundItem {
-    pub unknown: i16,
-    pub filname_len: u16,
-    #[protocol(length_prefix(elements(filname_len)))]
-    pub filename: String,
+    pub filename: DeString,
     pub resource_id: u32,
     pub probability: i16,
     pub civilization: i16,

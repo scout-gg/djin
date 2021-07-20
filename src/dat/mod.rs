@@ -7,12 +7,14 @@ use bytes::Buf;
 use eyre::Result;
 use protocol::Parcel;
 use std::path::Path;
+use crate::dat::sprite::{SpriteEnabled, SpriteTable};
 
 mod civ;
 mod color;
 mod sound;
 mod sprite;
 mod terrain;
+mod common;
 
 pub struct DatFile {
     game_version: GameVersion,
@@ -20,6 +22,8 @@ pub struct DatFile {
     terrain_restrictions: TerrainRestrictions,
     color_table: ColorTable,
     sound_table: SoundTable,
+    sprites_enabled: SpriteEnabled,
+    sprite_table: SpriteTable,
 }
 
 impl Default for DatFile {
@@ -43,6 +47,11 @@ impl Default for DatFile {
                 sound_table_size: 0,
                 sounds: vec![],
             },
+            sprites_enabled: SpriteEnabled {
+                size: 0,
+                sprite_enabled: vec![]
+            },
+            sprite_table: SpriteTable { sprites: vec![] }
         }
     }
 }
@@ -71,6 +80,9 @@ impl DatFile {
         );
         let color_table = ColorTable::read(&mut buf, &settings).expect("Read error");
         let sound_table = SoundTable::read(&mut buf, &settings).expect("Read error");
+        let sprites_enabled = SpriteEnabled::read(&mut buf, &settings).expect("Read error");
+        let sprite_table = SpriteTable::read(&mut buf, sprites_enabled.sprite_enabled.len(), &settings);
+        println!("{:?}", sprite_table);
 
         Ok(DatFile {
             game_version,
@@ -78,6 +90,8 @@ impl DatFile {
             terrain_restrictions,
             color_table,
             sound_table,
+            sprites_enabled,
+            sprite_table,
             ..Default::default()
         })
     }
