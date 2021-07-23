@@ -1,19 +1,20 @@
 mod zlib;
 
 use crate::dat::color::ColorTable;
-use crate::dat::sound::{Sound, SoundTable};
+use crate::dat::sound::{ SoundTable};
 use crate::dat::terrain::{TerrainHeader, TerrainRestrictions};
-use bytes::Buf;
 use eyre::Result;
 use protocol::Parcel;
 use std::path::Path;
 use crate::dat::sprite::{SpriteEnabled, SpriteTable};
+use crate::dat::terrain_block::{TerrainBlock, Terrain};
 
 mod civ;
 mod color;
 mod sound;
 mod sprite;
 mod terrain;
+mod terrain_block;
 mod common;
 
 pub struct DatFile {
@@ -24,36 +25,7 @@ pub struct DatFile {
     sound_table: SoundTable,
     sprites_enabled: SpriteEnabled,
     sprite_table: SpriteTable,
-}
-
-impl Default for DatFile {
-    fn default() -> Self {
-        Self {
-            game_version: GameVersion {
-                game_version: "".to_string(),
-            },
-            terrain_header: TerrainHeader {
-                terrain_restriction_size: 0,
-                restriction_size: 0,
-                terrain_tables_pointer: vec![],
-                terrains_pointer: vec![],
-            },
-            terrain_restrictions: TerrainRestrictions { inner: vec![] },
-            color_table: ColorTable {
-                size: 0,
-                colors: vec![],
-            },
-            sound_table: SoundTable {
-                sound_table_size: 0,
-                sounds: vec![],
-            },
-            sprites_enabled: SpriteEnabled {
-                size: 0,
-                sprite_enabled: vec![]
-            },
-            sprite_table: SpriteTable { sprites: vec![] }
-        }
-    }
+    terrain_block: TerrainBlock,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
@@ -81,9 +53,10 @@ impl DatFile {
         let color_table = ColorTable::read(&mut buf, &settings).expect("Read error");
         let sound_table = SoundTable::read(&mut buf, &settings).expect("Read error");
         let sprites_enabled = SpriteEnabled::read(&mut buf, &settings).expect("Read error");
-        let sprite_table = SpriteTable::read(&mut buf, sprites_enabled.sprite_enabled.len(), &settings);
-        println!("{:?}", sprite_table);
-
+        let sprite_table = SpriteTable::read(&mut buf, sprites_enabled.get_enabled_sprite_count(), &settings);
+        let terrain_block = TerrainBlock::read(&mut buf, &settings).expect("Read error");
+        println!("{:?}", terrain_block);
+        println!("PADDING {}", terrain_block.padding_ts);
         Ok(DatFile {
             game_version,
             terrain_header,
@@ -92,7 +65,7 @@ impl DatFile {
             sound_table,
             sprites_enabled,
             sprite_table,
-            ..Default::default()
+            terrain_block,
         })
     }
 }
@@ -104,6 +77,7 @@ mod test {
     use spectral::prelude::*;
 
     type TestResult = Result<()>;
+
 
     #[test]
     fn should_read_dat_file() -> TestResult {
@@ -122,7 +96,7 @@ mod test {
         // Terrain restrictions
         assert_that(&dat_file.terrain_restrictions.inner).has_length(31);
 
-        &dat_file.terrain_restrictions.inner.iter().for_each(|el| {
+        dat_file.terrain_restrictions.inner.iter().for_each(|el| {
             assert_that(&el.pass_graphics).has_length(110);
             assert_that(&el.passability).has_length(110);
         });

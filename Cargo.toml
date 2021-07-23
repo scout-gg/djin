@@ -9,8 +9,8 @@ edition = "2018"
 eyre = "^0"
 flate2 = "^1"
 bytes = "^1"
-protocol = { git = "https://github.com/oknozor/protocol" }
-protocol-derive = { git = "https://github.com/oknozor/protocol" }
+protocol = { git = "https://github.com/oknozor/protocol", branch = "feat/multiple_attributes" }
+protocol-derive = { git = "https://github.com/oknozor/protocol", branch = "feat/multiple_attributes" }
 
 [dev-dependencies]
 spectral = "0.6.0"

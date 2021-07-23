@@ -260,7 +260,7 @@ dependencies = [
 [[package]]
 name = "protocol"
 version = "3.1.9"
-source = "git+https://github.com/oknozor/protocol#a629f7314057d2db1f25068189286224a9d5d49b"
+source = "git+https://github.com/oknozor/protocol?branch=feat/multiple_attributes#2e59c716aa12a23900e1385b809ca0e1ebd5c83d"
 dependencies = [
  "byteorder",
  "error-chain",
@@ -272,7 +272,7 @@ dependencies = [
 [[package]]
 name = "protocol-derive"
 version = "3.1.9"
-source = "git+https://github.com/oknozor/protocol#a629f7314057d2db1f25068189286224a9d5d49b"
+source = "git+https://github.com/oknozor/protocol?branch=feat/multiple_attributes#2e59c716aa12a23900e1385b809ca0e1ebd5c83d"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -348,9 +348,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "1.0.73"
+version = "1.0.74"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f71489ff30030d2ae598524f61326b902466f72a0fb1a8564c001cc63425bcc7"
+checksum = "1873d832550d4588c3dbc20f01361ab00bfe741048f71e3fecf145a7cc18b29c"
 dependencies = [
  "proc-macro2",
  "quote",

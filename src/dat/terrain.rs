@@ -10,9 +10,7 @@ pub struct TerrainHeader {
     #[protocol(length_prefix(elements(terrain_restriction_size)))]
     pub terrain_tables_pointer: Vec<u32>,
 
-    // Fixme there is a bug in protocol, making this have length 1 when reusing "length_prefix" twice on the same field
-    // #[protocol(length_prefix(elements(terrain_restriction_size)))]
-    #[protocol(fixed_length(31))]
+    #[protocol(length_prefix(elements(terrain_restriction_size)))]
     pub terrains_pointer: Vec<u32>,
 }
 
