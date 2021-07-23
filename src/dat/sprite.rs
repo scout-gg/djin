@@ -4,38 +4,12 @@ use std::io::{Read};
 use crate::dat::common::DeString;
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
-pub struct SpriteEnabled {
+pub struct SpriteTable {
     pub size: u16,
     #[protocol(length_prefix(elements(size)))]
     pub sprite_enabled: Vec<u32>,
-}
-
-impl SpriteEnabled {
-    pub(crate) fn get_enabled_sprite_count(&self) -> usize {
-        self.sprite_enabled.iter()
-            .filter(|pointer| **pointer != 0)
-            .count()
-    }
-}
-
-#[derive(Debug, Clone, PartialEq)]
-pub struct SpriteTable {
+    #[protocol(length_prefix(pointers(sprite_enabled)))]
     pub sprites: Vec<Sprite>,
-}
-
-impl SpriteTable {
-    pub fn read(buf: &mut (impl Read + Buf), len_total: usize, settings: &Settings) -> Self {
-        let mut sprites = Vec::new();
-
-         for _ in 0..len_total {
-             let sprite = Sprite::read(buf, settings).expect("Read error");
-             sprites.push(sprite);
-         }
-
-        SpriteTable {
-            sprites
-        }
-    }
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]

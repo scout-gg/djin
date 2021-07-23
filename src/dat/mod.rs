@@ -1,20 +1,28 @@
 mod zlib;
 
 use crate::dat::color::ColorTable;
-use crate::dat::sound::{ SoundTable};
+use crate::dat::sound::{SoundTable};
 use crate::dat::terrain::{TerrainHeader, TerrainRestrictions};
 use eyre::Result;
 use protocol::Parcel;
 use std::path::Path;
-use crate::dat::sprite::{SpriteEnabled, SpriteTable};
+use crate::dat::sprite::{SpriteTable};
 use crate::dat::terrain_block::{TerrainBlock, Terrain};
+use crate::dat::random_map::RandomMap;
+use crate::dat::effect::Effects;
+use crate::dat::unit::{Units, Task, UnitHeaders};
+use bytes::Buf;
+use crate::dat::civilization::Civilizations;
 
-mod civ;
+mod civilization;
 mod color;
 mod sound;
 mod sprite;
 mod terrain;
 mod terrain_block;
+mod random_map;
+mod effect;
+mod unit;
 mod common;
 
 pub struct DatFile {
@@ -23,9 +31,11 @@ pub struct DatFile {
     terrain_restrictions: TerrainRestrictions,
     color_table: ColorTable,
     sound_table: SoundTable,
-    sprites_enabled: SpriteEnabled,
     sprite_table: SpriteTable,
     terrain_block: TerrainBlock,
+    random_map: RandomMap,
+    effects: Effects,
+    units: Units,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
@@ -52,20 +62,25 @@ impl DatFile {
         );
         let color_table = ColorTable::read(&mut buf, &settings).expect("Read error");
         let sound_table = SoundTable::read(&mut buf, &settings).expect("Read error");
-        let sprites_enabled = SpriteEnabled::read(&mut buf, &settings).expect("Read error");
-        let sprite_table = SpriteTable::read(&mut buf, sprites_enabled.get_enabled_sprite_count(), &settings);
+        let sprite_table = SpriteTable::read(&mut buf, &settings).expect("Read error");
         let terrain_block = TerrainBlock::read(&mut buf, &settings).expect("Read error");
-        println!("{:?}", terrain_block);
-        println!("PADDING {}", terrain_block.padding_ts);
+        let random_map = RandomMap::read(&mut buf, &settings).expect("Read error");
+        let effects = Effects::read(&mut buf, &settings).expect("Read error");
+        let units = Units::read(&mut buf, &settings).expect("Read error");
+        // let civs = Civilizations::read(&mut buf, &settings).expect("Read error");
+
+        // println!("{:?}", civs);
         Ok(DatFile {
             game_version,
             terrain_header,
             terrain_restrictions,
             color_table,
             sound_table,
-            sprites_enabled,
             sprite_table,
             terrain_block,
+            random_map,
+            effects,
+            units,
         })
     }
 }

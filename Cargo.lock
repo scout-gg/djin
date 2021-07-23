@@ -250,9 +250,9 @@ checksum = "692fcb63b64b1758029e0a96ee63e049ce8c5948587f2f7208df04625e5f6b56"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.27"
+version = "1.0.28"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f0d8caf72986c1a598726adc988bb5984792ef84f5ee5aa50209145ee8077038"
+checksum = "5c7ed8b8c7b886ea3ed7dde405212185f423ab44682667c8c6dd14aa1d9f6612"
 dependencies = [
  "unicode-xid",
 ]
@@ -260,7 +260,7 @@ dependencies = [
 [[package]]
 name = "protocol"
 version = "3.1.9"
-source = "git+https://github.com/oknozor/protocol?branch=feat/multiple_attributes#2e59c716aa12a23900e1385b809ca0e1ebd5c83d"
+source = "git+https://github.com/oknozor/protocol?branch=feat/length-pointer#4b5ab6bc7ca1d290a1d14bd065572b15186fb706"
 dependencies = [
  "byteorder",
  "error-chain",
@@ -272,7 +272,7 @@ dependencies = [
 [[package]]
 name = "protocol-derive"
 version = "3.1.9"
-source = "git+https://github.com/oknozor/protocol?branch=feat/multiple_attributes#2e59c716aa12a23900e1385b809ca0e1ebd5c83d"
+source = "git+https://github.com/oknozor/protocol?branch=feat/length-pointer#4b5ab6bc7ca1d290a1d14bd065572b15186fb706"
 dependencies = [
  "proc-macro2",
  "quote",
