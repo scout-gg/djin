@@ -12,7 +12,8 @@ use crate::dat::random_map::RandomMap;
 use crate::dat::effect::Effects;
 use crate::dat::unit::{Units, Task, UnitHeaders};
 use bytes::Buf;
-use crate::dat::civilization::Civilizations;
+use crate::dat::civilization::{Civilizations, Civilization};
+use crate::dat::common::DeString;
 
 mod civilization;
 mod color;
@@ -36,6 +37,7 @@ pub struct DatFile {
     random_map: RandomMap,
     effects: Effects,
     units: Units,
+    civilizations: Civilizations,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
@@ -67,9 +69,8 @@ impl DatFile {
         let random_map = RandomMap::read(&mut buf, &settings).expect("Read error");
         let effects = Effects::read(&mut buf, &settings).expect("Read error");
         let units = Units::read(&mut buf, &settings).expect("Read error");
-        // let civs = Civilizations::read(&mut buf, &settings).expect("Read error");
+        let civilizations = Civilizations::read(&mut buf, &settings).expect("Read error");
 
-        // println!("{:?}", civs);
         Ok(DatFile {
             game_version,
             terrain_header,
@@ -81,6 +82,7 @@ impl DatFile {
             random_map,
             effects,
             units,
+            civilizations,
         })
     }
 }
@@ -119,6 +121,7 @@ mod test {
         // Colors
         assert_that(&dat_file.color_table.colors).has_length(16);
         assert_that(&dat_file.sound_table.sounds).has_length(685);
+        assert_that(&dat_file.civilizations.civilizations).has_length(38);
 
         Ok(())
     }
