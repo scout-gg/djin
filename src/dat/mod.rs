@@ -10,8 +10,8 @@ use crate::dat::tech::Techs;
 use crate::dat::terrain::{TerrainHeader, TerrainRestrictions};
 use crate::dat::terrain_block::TerrainBlock;
 use crate::dat::unit::Units;
-use eyre::Result;
 use djin_protocol::Parcel;
+use eyre::Result;
 use std::path::Path;
 
 mod civilization;
