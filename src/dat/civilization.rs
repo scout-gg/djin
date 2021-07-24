@@ -1,7 +1,6 @@
 use crate::dat::common::DeString;
 use crate::dat::unit::Task;
-
-type ResourceUsage = (i16, i16, i16);
+use crate::dat::ResourceUsage;
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct Civilizations {
@@ -29,7 +28,7 @@ pub struct Civilization {
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct Unit {
-    pub unit_type: u8,
+    pub unit_type: UnitType,
     pub id: i16,
     pub language_dll_name: i32,
     pub language_dll_creation: i32,
@@ -103,19 +102,19 @@ pub struct Unit {
     pub name: DeString,
     pub copy_id: i16,
     pub base_id: i16,
-    #[protocol(skip_if("!(unit_type >= 20)"))]
+    #[protocol(skip_if("unit_type < UnitType::Flag"))]
     pub speed: Option<f32>,
-    #[protocol(skip_if("!(unit_type >= 30)"))]
+    #[protocol(skip_if("unit_type < UnitType::DeadFish"))]
     pub dead_fish: Option<DeadFish>,
-    #[protocol(skip_if("!(unit_type >= 40)"))]
+    #[protocol(skip_if("unit_type < UnitType::Bird"))]
     pub bird: Option<Bird>,
-    #[protocol(skip_if("!(unit_type >= 50)"))]
-    pub type_50: Option<Type50>,
-    #[protocol(skip_if("!(unit_type == 60)"))]
+    #[protocol(skip_if("unit_type < UnitType::Combatant"))]
+    pub type_50: Option<Combatant>,
+    #[protocol(skip_if("unit_type != UnitType::Projectile"))]
     pub projectile: Option<Projectile>,
-    #[protocol(skip_if("!(unit_type >= 70)"))]
+    #[protocol(skip_if("unit_type < UnitType::Creatable"))]
     pub creatable: Option<Creatable>,
-    #[protocol(skip_if("!(unit_type == 80)"))]
+    #[protocol(skip_if("unit_type != UnitType::Building"))]
     pub building: Option<Building>,
 }
 
@@ -129,12 +128,12 @@ pub struct DamageGraphic {
     pub apply_mode: u8,
 }
 
-#[derive(Protocol, Debug, Clone, PartialEq)]
+#[derive(Protocol, Debug, Clone, PartialEq, PartialOrd)]
 #[protocol(discriminant = "integer")]
 #[repr(u8)]
-pub enum UniType {
+pub enum UnitType {
     /// Basic units like rubble and flares.
-    Eyecandy = 10,
+    EyeCandy = 10,
 
     /// Trees, used to be 90?
     Trees = 15,
@@ -204,7 +203,7 @@ pub struct Bird {
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
-pub struct Type50 {
+pub struct Combatant {
     pub base_armor: i16,
     pub attack_count_size: i16,
     #[protocol(length_prefix(elements(attack_count_size)))]

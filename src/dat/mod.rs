@@ -6,6 +6,7 @@ use crate::dat::effect::Effects;
 use crate::dat::random_map::RandomMap;
 use crate::dat::sound::SoundTable;
 use crate::dat::sprite::SpriteTable;
+use crate::dat::tech::Techs;
 use crate::dat::terrain::{TerrainHeader, TerrainRestrictions};
 use crate::dat::terrain_block::TerrainBlock;
 use crate::dat::unit::Units;
@@ -20,10 +21,12 @@ mod effect;
 mod random_map;
 mod sound;
 mod sprite;
+mod tech;
 mod terrain;
 mod terrain_block;
 mod unit;
-mod unknown;
+
+type ResourceUsage = (i16, i16, i16);
 
 pub struct DatFile {
     pub game_version: GameVersion,
@@ -37,6 +40,7 @@ pub struct DatFile {
     pub effects: Effects,
     pub units: Units,
     pub civilizations: Civilizations,
+    pub techs: Techs,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
@@ -69,6 +73,7 @@ impl DatFile {
         let effects = Effects::read(&mut buf, &settings).expect("Read error");
         let units = Units::read(&mut buf, &settings).expect("Read error");
         let civilizations = Civilizations::read(&mut buf, &settings).expect("Read error");
+        let techs = Techs::read(&mut buf, &settings).expect("Read error");
 
         Ok(DatFile {
             game_version,
@@ -82,6 +87,7 @@ impl DatFile {
             effects,
             units,
             civilizations,
+            techs,
         })
     }
 }
