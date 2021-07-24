@@ -1,0 +1,30 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  cog_check_job:
+    runs-on: ubuntu-latest
+    name: check conventional commit compliance
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: rustfmt, clippy
+
+      - name: Add cargo token to env
+        run: |
+          echo "CARGO_TOKEN= "${{ secrets.CARGO_TOKEN }}" >> $GITHUB_ENV
+
+      - name: Semver release
+        uses: oknozor/cocogitto-action@v1
+        with:
+          release: true
+          git-user: 'Cog Bot'
+          git-user-email: 'paul.delafosse@protonmail.com'

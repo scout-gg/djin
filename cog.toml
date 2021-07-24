@@ -1,0 +1,24 @@
+github = "https://github.com/scout-gg/djin"
+
+authors = [
+    { signature = "Paul Delafosse", username = "oknozor" },
+]
+
+changelog_path = "CHANGELOG.md"
+
+pre_bump_hooks = [
+    "sh -c \"cargo login $CARGO_TOKEN\"",
+    "cargo test",
+    "cargo clippy",
+    "cargo build --release",
+    "cargo fmt --all",
+    "cargo bump {{version}}",
+]
+
+
+post_bump_hooks = [
+    "git push",
+    "git push origin {{version}}",
+    "cargo package",
+    "cargo publish"
+]
