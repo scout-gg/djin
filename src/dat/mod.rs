@@ -1,43 +1,42 @@
 mod zlib;
 
+use crate::dat::civilization::Civilizations;
 use crate::dat::color::ColorTable;
-use crate::dat::sound::{SoundTable};
+use crate::dat::effect::Effects;
+use crate::dat::random_map::RandomMap;
+use crate::dat::sound::SoundTable;
+use crate::dat::sprite::SpriteTable;
 use crate::dat::terrain::{TerrainHeader, TerrainRestrictions};
+use crate::dat::terrain_block::TerrainBlock;
+use crate::dat::unit::Units;
 use eyre::Result;
 use protocol::Parcel;
 use std::path::Path;
-use crate::dat::sprite::{SpriteTable};
-use crate::dat::terrain_block::{TerrainBlock, Terrain};
-use crate::dat::random_map::RandomMap;
-use crate::dat::effect::Effects;
-use crate::dat::unit::{Units, Task, UnitHeaders};
-use bytes::Buf;
-use crate::dat::civilization::{Civilizations, Civilization};
-use crate::dat::common::DeString;
 
 mod civilization;
 mod color;
+mod common;
+mod effect;
+mod random_map;
 mod sound;
 mod sprite;
 mod terrain;
 mod terrain_block;
-mod random_map;
-mod effect;
 mod unit;
-mod common;
+mod unknown;
 
 pub struct DatFile {
-    game_version: GameVersion,
-    terrain_header: TerrainHeader,
-    terrain_restrictions: TerrainRestrictions,
-    color_table: ColorTable,
-    sound_table: SoundTable,
-    sprite_table: SpriteTable,
-    terrain_block: TerrainBlock,
-    random_map: RandomMap,
-    effects: Effects,
-    units: Units,
-    civilizations: Civilizations,
+    pub game_version: GameVersion,
+    pub terrain_header: TerrainHeader,
+    pub terrain_restrictions: TerrainRestrictions,
+    pub color_table: ColorTable,
+    pub sound_table: SoundTable,
+    pub sprite_table: SpriteTable,
+    pub terrain_block: TerrainBlock,
+    pub random_map: RandomMap,
+    pub effects: Effects,
+    pub units: Units,
+    pub civilizations: Civilizations,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
@@ -47,7 +46,7 @@ pub struct GameVersion {
 }
 
 impl DatFile {
-    fn from_file<S: AsRef<Path> + ?Sized>(path: &S) -> Result<DatFile> {
+    pub fn from_file<S: AsRef<Path> + ?Sized>(path: &S) -> Result<DatFile> {
         let mut buf = zlib::decompress(path)?;
 
         let settings = protocol::Settings {
@@ -94,7 +93,6 @@ mod test {
     use spectral::prelude::*;
 
     type TestResult = Result<()>;
-
 
     #[test]
     fn should_read_dat_file() -> TestResult {

@@ -16,9 +16,13 @@ pub struct TerrainHeader {
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct TerrainRestrictions {
-    pub(crate) inner: Vec<TerrainRestriction>,
+    pub inner: Vec<TerrainRestriction>,
 }
 
+// Because TerrainRestrictions contains two nested vectors of size `terrain_restriction_size` and
+// `restriction_size` we need to implement read manually to pass these length value. This
+// could probably be addressed by implementing a #[protocol(context({value})] annotation to store
+// these value.
 impl TerrainRestrictions {
     pub fn read(
         buf: &mut (impl Read + Buf),
