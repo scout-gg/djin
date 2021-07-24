@@ -85,9 +85,9 @@ dependencies = [
 
 [[package]]
 name = "djin-protocol"
-version = "3.2.0"
+version = "3.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc700e620d40f28618d4ce7481c3eed9a2053ef45a6d2b3a310cbcfcbc8818a4"
+checksum = "313ab46236a88d65e8882c4f65f132862dd8d36a9da84173c0c36c4cfe58daf0"
 dependencies = [
  "byteorder",
  "error-chain",
@@ -98,9 +98,9 @@ dependencies = [
 
 [[package]]
 name = "djin-protocol-derive"
-version = "3.2.0"
+version = "3.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a1e66cace5632a85c0ee6a40d185eb19e7651d93a0f36dc4ac8ff982cf8c32c2"
+checksum = "4afb5e44a0a3a593fef5ed620b7b0f9bda3f888cb7e0a1654b3780829780671d"
 dependencies = [
  "proc-macro2",
  "quote",

@@ -1,5 +1,8 @@
 use crate::dat::common::DeString;
 
+const REQUIRED_TECH_SIZE: usize = 6;
+const RESOURCE_COSTS_SIZE: usize = 3;
+
 type TechResourcesCost = (i16, i16, u8);
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
@@ -11,9 +14,9 @@ pub struct Techs {
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct Tech {
-    #[protocol(fixed_length(6))]
+    #[protocol(fixed_length(REQUIRED_TECH_SIZE))]
     required_techs: Vec<i16>,
-    #[protocol(fixed_length(3))]
+    #[protocol(fixed_length(RESOURCE_COSTS_SIZE))]
     research_resource_cost: Vec<TechResourcesCost>,
     required_tech_count: i16,
     civ: i16,

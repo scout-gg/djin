@@ -7,6 +7,7 @@ use crate::dat::random_map::RandomMap;
 use crate::dat::sound::SoundTable;
 use crate::dat::sprite::SpriteTable;
 use crate::dat::tech::Techs;
+use crate::dat::tech_tree::TechTree;
 use crate::dat::terrain::{TerrainHeader, TerrainRestrictions};
 use crate::dat::terrain_block::TerrainBlock;
 use crate::dat::unit::Units;
@@ -22,6 +23,7 @@ mod random_map;
 mod sound;
 mod sprite;
 mod tech;
+mod tech_tree;
 mod terrain;
 mod terrain_block;
 mod unit;
@@ -41,12 +43,25 @@ pub struct DatFile {
     pub units: Units,
     pub civilizations: Civilizations,
     pub techs: Techs,
+    pub misc: Misc,
+    pub tech_tree: TechTree,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct GameVersion {
     #[protocol(fixed_length(8))]
     pub game_version: String,
+}
+
+#[derive(Protocol, Debug, Clone, PartialEq)]
+pub struct Misc {
+    time_slice: u32,
+    unit_kill_rate: u32,
+    unit_kill_total: u32,
+    unit_hit_point_rate: u32,
+    unit_hit_point_total: u32,
+    razing_kill_rate: u32,
+    razing_kill_total: u32,
 }
 
 impl DatFile {
@@ -74,7 +89,10 @@ impl DatFile {
         let units = Units::read(&mut buf, &settings).expect("Read error");
         let civilizations = Civilizations::read(&mut buf, &settings).expect("Read error");
         let techs = Techs::read(&mut buf, &settings).expect("Read error");
+        let misc = Misc::read(&mut buf, &settings).expect("Read error");
+        let tech_tree = TechTree::read(&mut buf, &settings).expect("Read error");
 
+        println!("{:#?}", tech_tree);
         Ok(DatFile {
             game_version,
             terrain_header,
@@ -88,6 +106,8 @@ impl DatFile {
             units,
             civilizations,
             techs,
+            misc,
+            tech_tree,
         })
     }
 }

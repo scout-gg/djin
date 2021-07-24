@@ -2,6 +2,10 @@ use crate::dat::common::DeString;
 use crate::dat::unit::Task;
 use crate::dat::ResourceUsage;
 
+const RESOURCE_STORAGE_SIZE: usize = 3;
+const GRAPHIC_DISPLACEMENT_SIZE: usize = 3;
+const BUILDING_ANNEXES_SIZE: usize = 4;
+
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct Civilizations {
     pub size: u16,
@@ -86,7 +90,7 @@ pub struct Unit {
     pub outline_box: (f32, f32, f32),
     pub data: u32,
     pub data_2: u32,
-    #[protocol(fixed_length(3))]
+    #[protocol(fixed_length(RESOURCE_STORAGE_SIZE))]
     pub resources_storage: Vec<ResourceStorage>,
     pub damage_graphic_size: u8,
     #[protocol(length_prefix(elements(damage_graphic_size)))]
@@ -220,7 +224,7 @@ pub struct Combatant {
     pub accuracy_percent: i16,
     pub break_off_combat: u8,
     pub frame_delay: i16,
-    #[protocol(fixed_length(3))]
+    #[protocol(fixed_length(GRAPHIC_DISPLACEMENT_SIZE))]
     pub graphic_displacement: Vec<f32>,
     pub blast_attack_level: u8,
     pub min_range: f32,
@@ -244,7 +248,7 @@ pub struct Projectile {
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct Creatable {
-    #[protocol(fixed_length(3))]
+    #[protocol(fixed_length(RESOURCE_STORAGE_SIZE))]
     pub resources_costs: Vec<ResourceUsage>,
     pub train_time: i16,
     pub train_location_id: i16,
@@ -286,7 +290,7 @@ pub struct Building {
     pub old_overlay_id: i16,
     pub tech_id: i16,
     pub can_burn: u8,
-    #[protocol(fixed_length(4))]
+    #[protocol(fixed_length(BUILDING_ANNEXES_SIZE))]
     pub building_annexes: Vec<Annexe>,
     pub head_unit: i16,
     pub transform_unit: i16,

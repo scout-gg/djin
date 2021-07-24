@@ -1,5 +1,11 @@
 use crate::dat::common::DeString;
 
+const TILESIZE_SIZE: usize = 19;
+const TERRAIN_SIZE: usize = 200;
+const COLORS_SIZE: usize = 3;
+const FRAME_DATA_SIZE: usize = 19;
+const TERRAIN_UNIT_SIZE: usize = 30;
+
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct TerrainBlock {
     pub virtual_function_pointer: u32,
@@ -9,13 +15,13 @@ pub struct TerrainBlock {
     pub world_width: i32,
     pub world_height: i32,
 
-    #[protocol(fixed_length(19))]
+    #[protocol(fixed_length(TILESIZE_SIZE))]
     pub tile_sizes: Vec<TileSize>,
 
     pub padding_ts: i16,
     pub padding_ts_2: i16,
 
-    #[protocol(fixed_length(200))]
+    #[protocol(fixed_length(TERRAIN_SIZE))]
     pub terrains: Vec<Terrain>,
     pub map_min_x: f32,
     pub map_min_y: f32,
@@ -77,7 +83,7 @@ pub struct Terrain {
     pub blend_priority: i32,
     pub blend_type: i32,
     pub overlay: DeString,
-    #[protocol(fixed_length(3))]
+    #[protocol(fixed_length(COLORS_SIZE))]
     pub colors: Vec<u8>,
     pub cliff_colors: (u8, u8),
     pub passable_terrain: u8,
@@ -92,18 +98,18 @@ pub struct Terrain {
     pub animate_last: f32,
     pub frame_changed: u8,
     pub drawn: u8,
-    #[protocol(fixed_length(19))]
+    #[protocol(fixed_length(FRAME_DATA_SIZE))]
     pub elevation_graphic: Vec<FrameData>,
     pub terrain_to_draw: i16,
     pub terrain_dimensions: (i16, i16),
 
-    #[protocol(fixed_length(30))]
+    #[protocol(fixed_length(TERRAIN_UNIT_SIZE))]
     pub terrain_unit_masked_density: Vec<i16>,
-    #[protocol(fixed_length(30))]
+    #[protocol(fixed_length(TERRAIN_UNIT_SIZE))]
     pub terrain_unit_tid: Vec<i16>,
-    #[protocol(fixed_length(30))]
+    #[protocol(fixed_length(TERRAIN_UNIT_SIZE))]
     pub terrain_unit_density: Vec<i16>,
-    #[protocol(fixed_length(30))]
+    #[protocol(fixed_length(TERRAIN_UNIT_SIZE))]
     pub terrain_unit_centering: Vec<u8>,
     pub number_of_terrain_units_used: i16,
     pub phantom: i16,
