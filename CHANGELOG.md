@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.2.0 - 2021-07-24
+
+
+### Features
+
+[ded58b](https://github.com/scout-gg/djin/commit/ded58b5845e86e93067422903b7497525cdd16b1) - implement tech tree, datfile is now complete - [oknozor](https://github.com/oknozor)
+
+
+- - -
 ## 0.1.0 - 2021-07-24
 
 
