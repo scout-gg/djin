@@ -22,10 +22,10 @@ name = "aoe-djin"
 version = "0.1.0"
 dependencies = [
  "bytes",
+ "djin-protocol",
+ "djin-protocol-derive",
  "eyre",
  "flate2",
- "protocol",
- "protocol-derive",
  "spectral",
 ]
 
@@ -81,6 +81,30 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "81156fece84ab6a9f2afdb109ce3ae577e42b1228441eded99bd77f627953b1a"
 dependencies = [
  "cfg-if",
+]
+
+[[package]]
+name = "djin-protocol"
+version = "3.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fc700e620d40f28618d4ce7481c3eed9a2053ef45a6d2b3a310cbcfcbc8818a4"
+dependencies = [
+ "byteorder",
+ "error-chain",
+ "flate2",
+ "num-traits",
+ "uuid",
+]
+
+[[package]]
+name = "djin-protocol-derive"
+version = "3.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a1e66cace5632a85c0ee6a40d185eb19e7651d93a0f36dc4ac8ff982cf8c32c2"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -255,28 +279,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c7ed8b8c7b886ea3ed7dde405212185f423ab44682667c8c6dd14aa1d9f6612"
 dependencies = [
  "unicode-xid",
-]
-
-[[package]]
-name = "protocol"
-version = "3.1.9"
-source = "git+https://github.com/oknozor/protocol?branch=feat/length-pointer#4b5ab6bc7ca1d290a1d14bd065572b15186fb706"
-dependencies = [
- "byteorder",
- "error-chain",
- "flate2",
- "num-traits",
- "uuid",
-]
-
-[[package]]
-name = "protocol-derive"
-version = "3.1.9"
-source = "git+https://github.com/oknozor/protocol?branch=feat/length-pointer#4b5ab6bc7ca1d290a1d14bd065572b15186fb706"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
 ]
 
 [[package]]

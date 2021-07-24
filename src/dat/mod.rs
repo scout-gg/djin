@@ -11,7 +11,7 @@ use crate::dat::terrain::{TerrainHeader, TerrainRestrictions};
 use crate::dat::terrain_block::TerrainBlock;
 use crate::dat::unit::Units;
 use eyre::Result;
-use protocol::Parcel;
+use djin_protocol::Parcel;
 use std::path::Path;
 
 mod civilization;
@@ -53,8 +53,8 @@ impl DatFile {
     pub fn from_file<S: AsRef<Path> + ?Sized>(path: &S) -> Result<DatFile> {
         let mut buf = zlib::decompress(path)?;
 
-        let settings = protocol::Settings {
-            byte_order: protocol::ByteOrder::LittleEndian,
+        let settings = djin_protocol::Settings {
+            byte_order: djin_protocol::ByteOrder::LittleEndian,
         };
 
         let game_version = GameVersion::read(&mut buf, &settings).expect("Read error");

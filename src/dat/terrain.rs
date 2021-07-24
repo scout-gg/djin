@@ -1,5 +1,5 @@
 use bytes::Buf;
-use protocol::{Parcel, Settings};
+use djin_protocol::{Parcel, Settings};
 use std::io::Read;
 
 #[derive(Protocol, Debug, Clone, PartialEq)]

@@ -1,5 +1,5 @@
 #[macro_use]
-extern crate protocol_derive;
+extern crate djin_protocol_derive;
 
 #[cfg(test)]
 #[macro_use]
