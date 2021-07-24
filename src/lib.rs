@@ -5,4 +5,4 @@ extern crate protocol_derive;
 #[macro_use]
 extern crate spectral;
 
-mod dat;
+pub mod dat;
