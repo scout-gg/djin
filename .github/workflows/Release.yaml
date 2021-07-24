@@ -20,7 +20,7 @@ jobs:
 
       - name: Add cargo token to env
         run: |
-          echo "CARGO_TOKEN= "${{ secrets.CARGO_TOKEN }}" >> $GITHUB_ENV
+          echo "CARGO_TOKEN= "${{ secrets.CARGO_TOKEN }}"" >> $GITHUB_ENV
 
       - name: Semver release
         uses: oknozor/cocogitto-action@v1

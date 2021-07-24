@@ -1,8 +1,13 @@
 [package]
-name = "djin"
+name = "aoe-djin"
 version = "0.1.0"
 edition = "2018"
-
+readme = "README.md"
+license-file = "LICENSE"
+repository = "https://github.com/scout-gg/djin"
+description="""
+Djin is a utility crate to extract Age of Empire II Definitive edition game data.
+"""
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
