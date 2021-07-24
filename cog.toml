@@ -8,6 +8,7 @@ changelog_path = "CHANGELOG.md"
 
 pre_bump_hooks = [
     "sh -c \"cargo login $CARGO_TOKEN\"",
+    "cargo install cargo-bump",
     "cargo test",
     "cargo clippy",
     "cargo build --release",
