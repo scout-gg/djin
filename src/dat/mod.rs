@@ -92,7 +92,6 @@ impl DatFile {
         let misc = Misc::read(&mut buf, &settings).expect("Read error");
         let tech_tree = TechTree::read(&mut buf, &settings).expect("Read error");
 
-        println!("{:#?}", tech_tree);
         Ok(DatFile {
             game_version,
             terrain_header,

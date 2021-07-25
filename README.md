@@ -14,4 +14,15 @@ handle game files  serialization and deserialization. This allow us to write alm
 Age of Empires II © Microsoft Corporation. djin was created under Microsoft's "Game Content Usage Rules" using 
 assets from Age of Empires II, and it is not endorsed by or affiliated with Microsoft.
 
+## Example 
+
+```rust
+fn main() {
+    let datfile = DatFile::from_file("tests/game_assets/empires2_x2_p1.dat").expect("Error reading dat file");
+    
+    datfile.civilizations.civilizations.iter()
+        .for_each(|civ| println!("{}", civ.name))
+}
+```
+
 
