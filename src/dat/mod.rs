@@ -28,7 +28,50 @@ mod terrain;
 mod terrain_block;
 mod unit;
 
-type ResourceUsage = (i16, i16, i16);
+#[derive(Protocol, Debug, Clone, PartialEq)]
+pub struct ResourceUsage {
+    /// The kind of resource to give or take
+    pub attribute: ResourceUsageType,
+    /// The amount give or take
+    pub amount: i16,
+    /// How and when this is counted
+    pub flag: ResourceUsageTrigger,
+}
+
+#[derive(Protocol, Debug, Clone, PartialEq, PartialOrd)]
+#[protocol(discriminant = "integer")]
+#[repr(u16)]
+pub enum ResourceUsageTrigger {
+    OnCreate = 0,
+    OnQueue = 1,
+}
+
+#[derive(Protocol, Debug, Clone, PartialEq, PartialOrd)]
+#[protocol(discriminant = "integer")]
+#[repr(u16)]
+pub enum ResourceUsageType {
+    /// Take or give an amount of food to the player
+    Food = 0,
+    /// Take or give an amount of wood to the player
+    Wood = 1,
+    /// Take or give an amount of stone to the player
+    Stone = 2,
+    /// Take or give an amount of gold to the player
+    Gold = 3,
+    /// Take or give an amount of population to the player
+    Pop = 4,
+    /// A free unit (Elite Kipchak)
+    Free = 214,
+    /// Two units in the game use this attribute : Elite Kipchak and Urus Khan (migth be creatable on some campaingn scenario)
+    DecreaseSharedUnitCount = 215,
+    /// A town center slot either in dark age (UNKOWN RTWC1X) or in feudal age for Cumans (UNKOWN RTWC2X)
+    TownCenter = 218,
+    /// Also for Elite Kipchak and Urus Khan, decrease the number of available unit (10 For Kipchak)
+    TeamBonusCounter,
+    // We cannot use i16 as enum discriminant but this is actually -1
+    /// This can be ignored
+    None = 65535,
+}
 
 pub struct DatFile {
     pub game_version: GameVersion,
@@ -113,6 +156,8 @@ impl DatFile {
 
 #[cfg(test)]
 mod test {
+    use crate::dat::tech::ResourceCostType;
+    use crate::dat::tech::{ResourceCostTrigger, TechResourcesCost};
     use crate::dat::DatFile;
     use eyre::Result;
     use spectral::prelude::*;
@@ -122,7 +167,6 @@ mod test {
     #[test]
     fn should_read_dat_file() -> TestResult {
         let dat_file = DatFile::from_file("tests/game_assets/empires2_x2_p1.dat").unwrap();
-
         // Version
         assert_that(&dat_file.game_version.game_version).is_equal_to("VER 7.4\0".to_string());
 
@@ -145,6 +189,35 @@ mod test {
         assert_that(&dat_file.color_table.colors).has_length(16);
         assert_that(&dat_file.sound_table.sounds).has_length(685);
         assert_that(&dat_file.civilizations.civilizations).has_length(38);
+
+        let fletching = dat_file
+            .techs
+            .techs
+            .iter()
+            .find(|tech| tech.name == "Fletching")
+            .expect("Could not find fletching");
+
+        // Fletching cost 100 Food and 50 gold
+        assert_that(&fletching.research_resource_cost).contains_all_of(
+            &vec![
+                TechResourcesCost {
+                    amount: 100,
+                    flag: ResourceCostTrigger::OnQueue,
+                    resource_type: ResourceCostType::Food,
+                },
+                TechResourcesCost {
+                    amount: 50,
+                    flag: ResourceCostTrigger::OnQueue,
+                    resource_type: ResourceCostType::Gold,
+                },
+                TechResourcesCost {
+                    amount: 0,
+                    flag: ResourceCostTrigger::OnCreate,
+                    resource_type: ResourceCostType::None,
+                },
+            ]
+            .iter(),
+        );
 
         Ok(())
     }

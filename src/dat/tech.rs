@@ -3,7 +3,36 @@ use crate::dat::common::DeString;
 const REQUIRED_TECH_SIZE: usize = 6;
 const RESOURCE_COSTS_SIZE: usize = 3;
 
-type TechResourcesCost = (i16, i16, u8);
+#[derive(Protocol, Debug, Clone, PartialEq, PartialOrd)]
+pub struct TechResourcesCost {
+    pub resource_type: ResourceCostType,
+    pub amount: i16,
+    pub flag: ResourceCostTrigger,
+}
+
+#[derive(Protocol, Debug, Clone, PartialEq, PartialOrd)]
+#[protocol(discriminant = "integer")]
+#[repr(u8)]
+pub enum ResourceCostTrigger {
+    OnCreate = 0,
+    OnQueue = 1,
+}
+
+#[derive(Protocol, Debug, Clone, PartialEq, PartialOrd)]
+#[protocol(discriminant = "integer")]
+#[repr(u16)]
+pub enum ResourceCostType {
+    Food = 0,
+    Wood = 1,
+    Stone = 2,
+    Gold = 3,
+    /// Used only for Lithuanians unique bonus
+    Relic = 7,
+    // We cannot use i16 as enum discriminant but this is actually -1
+    None = 65535,
+    /// Used only for Cumans free elite Kipchaks team bonus
+    Free = 215,
+}
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct Techs {
@@ -33,5 +62,5 @@ pub struct Tech {
     pub language_dll_tech_tree: u32,
     pub hot_key: u32,
     pub name: DeString,
-    pub repeatable: u8,
+    pub repeatable: bool,
 }
