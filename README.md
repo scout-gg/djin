@@ -16,6 +16,8 @@ assets from Age of Empires II, and it is not endorsed by or affiliated with Micr
 
 ## Example 
 
+You can run this example with `cargo run --example datfile` :
+
 ```rust
 fn main() {
     let datfile = DatFile::from_file("tests/game_assets/empires2_x2_p1.dat").expect("Error reading dat file");

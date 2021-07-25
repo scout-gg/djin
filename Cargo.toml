@@ -19,3 +19,7 @@ djin-protocol-derive = "^3"
 
 [dev-dependencies]
 spectral = "0.6.0"
+
+[[example]]
+name = "datfile"
+path = "examples/datfile.rs"
