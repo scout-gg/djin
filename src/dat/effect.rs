@@ -9,17 +9,17 @@ pub struct Effects {
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct Effect {
-    name: DeString,
-    command_size: i16,
+    pub name: DeString,
+    pub command_size: i16,
     #[protocol(length_prefix(elements(command_size)))]
-    commands: Vec<EffectCommand>,
+    pub commands: Vec<EffectCommand>,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct EffectCommand {
-    command_type: u8,
-    a: i16,
-    b: i16,
-    c: i16,
-    d: f32,
+    pub command_type: u8,
+    pub a: i16,
+    pub b: i16,
+    pub c: i16,
+    pub d: f32,
 }

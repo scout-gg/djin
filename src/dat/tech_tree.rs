@@ -66,49 +66,49 @@ pub struct BuildingConnection {
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct UnitConnection {
-    id: i32,
-    status: u8,
-    upper_building: i32,
-    tech_tree_common: TechTreeCommon,
-    vertical_line: u32,
-    units_size: u8,
+    pub id: i32,
+    pub status: u8,
+    pub upper_building: i32,
+    pub tech_tree_common: TechTreeCommon,
+    pub vertical_line: u32,
+    pub units_size: u8,
     #[protocol(length_prefix(elements(units_size)))]
-    units: Vec<i32>,
-    location_in_age: i32,
-    required_research: i32,
-    line_mode: i32,
-    enabling_research: i32,
+    pub units: Vec<i32>,
+    pub location_in_age: i32,
+    pub required_research: i32,
+    pub line_mode: i32,
+    pub enabling_research: i32,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct ResearchConnection {
-    id: u32,
-    status: u8,
-    upper_building: u32,
-    buildings_size: u8,
+    pub id: u32,
+    pub status: u8,
+    pub upper_building: u32,
+    pub buildings_size: u8,
     #[protocol(length_prefix(elements(buildings_size)))]
-    buildings: Vec<u32>,
-    units_size: u8,
+    pub buildings: Vec<u32>,
+    pub units_size: u8,
     #[protocol(length_prefix(elements(units_size)))]
-    units: Vec<u32>,
-    techs_size: u8,
+    pub units: Vec<u32>,
+    pub techs_size: u8,
     #[protocol(length_prefix(elements(techs_size)))]
-    techs: Vec<u32>,
-    tech_tree_common: TechTreeCommon,
-    vertical_line: u32,
-    location_in_age: u32,
-    line_mode: u32,
+    pub techs: Vec<u32>,
+    pub tech_tree_common: TechTreeCommon,
+    pub vertical_line: u32,
+    pub location_in_age: u32,
+    pub line_mode: u32,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct TechTreeCommon {
-    slots_used: u32,
+    pub slots_used: u32,
     /// Connection lines when selected
     #[protocol(fixed_length(SLOT_SIZE))]
-    unit_research: Vec<u32>,
+    pub unit_research: Vec<u32>,
     /// 0 Age/Tech-level, 1 Building, 2 Unit, 3 Tech.
     #[protocol(fixed_length(SLOT_SIZE))]
-    mode: Vec<TechTreeMode>,
+    pub mode: Vec<TechTreeMode>,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq, PartialOrd)]

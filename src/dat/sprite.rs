@@ -43,13 +43,13 @@ pub struct Sprite {
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct SpriteDelta {
-    graphic_id: i16,
-    padding_1: i16,
-    sprite_ptr: i32,
-    offset_x: i16,
-    offset_y: i16,
-    display_angle: i16,
-    padding_2: i16,
+    pub graphic_id: i16,
+    pub padding_1: i16,
+    pub sprite_ptr: i32,
+    pub offset_x: i16,
+    pub offset_y: i16,
+    pub display_angle: i16,
+    pub padding_2: i16,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]

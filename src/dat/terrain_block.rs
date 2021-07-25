@@ -118,7 +118,7 @@ pub struct Terrain {
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct FrameData {
-    framecount: i16,
-    anglecount: i16,
-    shapeid: i16,
+    pub frame_count: i16,
+    pub angle_count: i16,
+    pub shape_id: i16,
 }
