@@ -14,12 +14,12 @@ pre_bump_hooks = [
     "cargo build --release",
     "cargo fmt --all",
     "cargo bump {{version}}",
+    "cargo update",
 ]
 
 
 post_bump_hooks = [
     "git push",
     "git push origin {{version}}",
-    "cargo package",
     "cargo publish"
 ]
