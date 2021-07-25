@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.1 - 2021-07-25
+
+
+### Bug Fixes
+
+[5ae65f](https://github.com/scout-gg/djin/commit/5ae65fcf497031d70c08db91a16cf5a1f792afd8) - remove pub (crate) visibility for techs - [oknozor](https://github.com/oknozor)
+
+
+- - -
 ## 0.3.0 - 2021-07-25
 
 
