@@ -1,5 +1,10 @@
 # Djin
 
+[![CI](https://github.com/scout-gg/djin/actions/workflows/Check.yml/badge.svg)](https://github.com/scout-gg/djin/actions/workflows/Check.yml)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/scout-gg/djin)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+![License](https://img.shields.io/github/license/scout-gg/djin)
+
 ⚠️ **Work in progress**
 
 Djin is a *work in progress* replacement for [genie-rs](https://github.com/SiegeEngineers/genie-rs).
