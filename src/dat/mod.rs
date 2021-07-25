@@ -82,10 +82,10 @@ pub struct DatFile {
     pub sprite_table: SpriteTable,
     pub terrain_block: TerrainBlock,
     pub random_map: RandomMap,
-    pub effects: Effects,
-    pub units: Units,
-    pub civilizations: Civilizations,
-    pub techs: Techs,
+    pub effect_table: Effects,
+    pub unit_table: Units,
+    pub civilization_table: Civilizations,
+    pub tech_table: Techs,
     pub misc: Misc,
     pub tech_tree: TechTree,
 }
@@ -123,17 +123,20 @@ impl DatFile {
             terrain_header.restriction_size as usize,
             &settings,
         );
-        let color_table = ColorTable::read(&mut buf, &settings).expect("Read error");
-        let sound_table = SoundTable::read(&mut buf, &settings).expect("Read error");
-        let sprite_table = SpriteTable::read(&mut buf, &settings).expect("Read error");
-        let terrain_block = TerrainBlock::read(&mut buf, &settings).expect("Read error");
-        let random_map = RandomMap::read(&mut buf, &settings).expect("Read error");
-        let effects = Effects::read(&mut buf, &settings).expect("Read error");
-        let units = Units::read(&mut buf, &settings).expect("Read error");
-        let civilizations = Civilizations::read(&mut buf, &settings).expect("Read error");
-        let techs = Techs::read(&mut buf, &settings).expect("Read error");
-        let misc = Misc::read(&mut buf, &settings).expect("Read error");
-        let tech_tree = TechTree::read(&mut buf, &settings).expect("Read error");
+        let color_table = ColorTable::read(&mut buf, &settings).expect("Error reading color_table");
+        let sound_table = SoundTable::read(&mut buf, &settings).expect("Error reading sound_table");
+        let sprite_table =
+            SpriteTable::read(&mut buf, &settings).expect("Error reading sprite_table");
+        let terrain_block =
+            TerrainBlock::read(&mut buf, &settings).expect("Error reading terrain_block");
+        let random_map = RandomMap::read(&mut buf, &settings).expect("Error reading random_map");
+        let effect_table = Effects::read(&mut buf, &settings).expect("Error reading effect_table");
+        let unit_table = Units::read(&mut buf, &settings).expect("Error reading unit_table");
+        let civilization_table =
+            Civilizations::read(&mut buf, &settings).expect("Error reading civilization_table");
+        let tech_table = Techs::read(&mut buf, &settings).expect("Error reading tech_table");
+        let misc = Misc::read(&mut buf, &settings).expect("Error reading misc");
+        let tech_tree = TechTree::read(&mut buf, &settings).expect("Error reading tech_tree");
 
         Ok(DatFile {
             game_version,
@@ -144,10 +147,10 @@ impl DatFile {
             sprite_table,
             terrain_block,
             random_map,
-            effects,
-            units,
-            civilizations,
-            techs,
+            effect_table,
+            unit_table,
+            civilization_table,
+            tech_table,
             misc,
             tech_tree,
         })
@@ -188,10 +191,11 @@ mod test {
         // Colors
         assert_that(&dat_file.color_table.colors).has_length(16);
         assert_that(&dat_file.sound_table.sounds).has_length(685);
-        assert_that(&dat_file.civilizations.civilizations).has_length(38);
+        assert_that(&dat_file.civilization_table.civilizations).has_length(38);
 
+        // Tech
         let fletching = dat_file
-            .techs
+            .tech_table
             .techs
             .iter()
             .find(|tech| tech.name == "Fletching")

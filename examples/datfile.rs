@@ -5,7 +5,7 @@ fn main() {
         DatFile::from_file("tests/game_assets/empires2_x2_p1.dat").expect("Error reading dat file");
 
     datfile
-        .civilizations
+        .civilization_table
         .civilizations
         .iter()
         .for_each(|civ| println!("{}", civ.name))
