@@ -2,6 +2,26 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.2.1 - 2021-07-25
+
+
+### Bug Fixes
+
+[178c00](https://github.com/scout-gg/djin/commit/178c00e8b3db136344fce8dbe672a47853376038) - fix packaging release stage in cog.toml - [oknozor](https://github.com/oknozor)
+
+[bcf643](https://github.com/scout-gg/djin/commit/bcf6436d416ca5177a8d341a9d5d83e096552b1f) - make all fields public - [oknozor](https://github.com/oknozor)
+
+[b7d6e5](https://github.com/scout-gg/djin/commit/b7d6e526739c427927cda36651e341ebab396f25) - remove useless print and add example - [oknozor](https://github.com/oknozor)
+
+
+### Documentation
+
+[8c48a7](https://github.com/scout-gg/djin/commit/8c48a74f21cb38b5f6e770cd4ec2b2e392aec0e7) - add readme badges - [oknozor](https://github.com/oknozor)
+
+[761085](https://github.com/scout-gg/djin/commit/761085110014e895e7290fa46242cc2dc94e4fa2) - add datfile example - [oknozor](https://github.com/oknozor)
+
+
+- - -
 ## 0.2.0 - 2021-07-24
 
 
