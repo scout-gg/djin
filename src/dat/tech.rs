@@ -36,9 +36,9 @@ pub enum ResourceCostType {
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct Techs {
-    pub(crate) size: u16,
+    pub size: u16,
     #[protocol(length_prefix(elements(size)))]
-    pub(crate) techs: Vec<Tech>,
+    pub techs: Vec<Tech>,
 }
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
