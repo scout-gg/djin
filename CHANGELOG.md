@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.2 - 2021-07-25
+
+
+### Bug Fixes
+
+[39d916](https://github.com/scout-gg/djin/commit/39d916773d0c38fdf6c70a12601636876f783b01) - make all dat modules public - [oknozor](https://github.com/oknozor)
+
+
+- - -
 ## 0.3.1 - 2021-07-25
 
 
