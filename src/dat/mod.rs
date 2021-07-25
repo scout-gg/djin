@@ -15,18 +15,18 @@ use djin_protocol::Parcel;
 use eyre::Result;
 use std::path::Path;
 
-mod civilization;
-mod color;
-mod common;
-mod effect;
-mod random_map;
-mod sound;
-mod sprite;
-mod tech;
-mod tech_tree;
-mod terrain;
-mod terrain_block;
-mod unit;
+pub mod civilization;
+pub mod color;
+pub mod common;
+pub mod effect;
+pub mod random_map;
+pub mod sound;
+pub mod sprite;
+pub mod tech;
+pub mod tech_tree;
+pub mod terrain;
+pub mod terrain_block;
+pub mod unit;
 
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct ResourceUsage {
