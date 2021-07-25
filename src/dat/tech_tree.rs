@@ -21,7 +21,7 @@ pub struct TechTree {
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct TechTreeAge {
     pub id: u32,
-    pub status: u8,
+    pub status: TechTreeStatus,
     pub buildings_size: u8,
     #[protocol(length_prefix(elements(buildings_size)))]
     pub buildings: Vec<i32>,
@@ -44,7 +44,7 @@ pub struct TechTreeAge {
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct BuildingConnection {
     pub id: i32,
-    pub status: u8,
+    pub status: TechTreeStatus,
     pub buildings_size: u8,
     #[protocol(length_prefix(elements(buildings_size)))]
     pub buildings: Vec<i32>,
@@ -67,7 +67,7 @@ pub struct BuildingConnection {
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct UnitConnection {
     pub id: i32,
-    pub status: u8,
+    pub status: TechTreeStatus,
     pub upper_building: i32,
     pub tech_tree_common: TechTreeCommon,
     pub vertical_line: u32,
@@ -83,7 +83,7 @@ pub struct UnitConnection {
 #[derive(Protocol, Debug, Clone, PartialEq)]
 pub struct ResearchConnection {
     pub id: u32,
-    pub status: u8,
+    pub status: TechTreeStatus,
     pub upper_building: u32,
     pub buildings_size: u8,
     #[protocol(length_prefix(elements(buildings_size)))]
@@ -119,4 +119,12 @@ pub enum TechTreeMode {
     Building = 1,
     Unit = 2,
     Tech = 3,
+}
+
+#[derive(Protocol, Debug, Clone, PartialEq, PartialOrd)]
+#[protocol(discriminant = "integer")]
+#[repr(u8)]
+pub enum TechTreeStatus {
+    /// This does not seem to be used anymore in DE
+    AvailablePlayer = 2,
 }
