@@ -2,6 +2,22 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.0 - 2021-07-25
+
+
+### Refactoring
+
+[bc790a](https://github.com/scout-gg/djin/commit/bc790ae47694930b1420d27967be6b062f490920) - rename top level Datfile fields to avoid repetition - [oknozor](https://github.com/oknozor)
+
+
+### Features
+
+[4a8298](https://github.com/scout-gg/djin/commit/4a8298fece89f9b4010d31ea456c732690fbf9bf) - add tech tree status - [oknozor](https://github.com/oknozor)
+
+[57edd1](https://github.com/scout-gg/djin/commit/57edd1d1e6d3369da7601f929be337d3ac24f55e) - use enum for resource usage type and resource usage trigger - [oknozor](https://github.com/oknozor)
+
+
+- - -
 ## 0.2.1 - 2021-07-25
 
 
