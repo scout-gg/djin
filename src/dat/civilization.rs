@@ -36,7 +36,7 @@ pub struct Unit {
     pub id: i16,
     pub language_dll_name: i32,
     pub language_dll_creation: i32,
-    pub class: i16,
+    pub class: UnitClass,
     pub standing_graphics: (i16, i16),
     pub dying_graphic: i16,
     pub undead_graphic: i16,
@@ -316,4 +316,67 @@ pub struct Annexe {
 pub struct AttackOrArmor {
     pub class: i16,
     pub amount: i16,
+}
+
+#[derive(Protocol, Debug, Clone, PartialEq, PartialOrd)]
+#[protocol(discriminant = "integer")]
+#[repr(u16)]
+pub enum UnitClass {
+    Archer = 0,
+    /// Relic cart, convertable torch and rock church
+    MiscConvertable = 1,
+    TradeShip = 2,
+    Building = 3,
+    Villager = 4,
+    Fish = 5,
+    Infantry = 6,
+    Forage = 7,
+    Stone = 8,
+    Deer = 9,
+    SavageAnimals = 10,
+    DeadFarmOrFlare = 11,
+    Cavalry = 12,
+    Siege = 13,
+    Decor = 14,
+    Tree = 15,
+    // Internal name of the single unit for this class is FACAHOLE with no language dll help
+    Unknown16 = 16,
+    Monk = 18,
+    TradeCart = 19,
+    TransportShip = 20,
+    FishingShip = 21,
+    WarShip = 22,
+    CavalryGunPowder = 23,
+    Wall = 27,
+    MapRevealAndFlares = 30,
+    Gold = 32,
+    ShoreFish = 33,
+    Unknown34 = 34,
+    Petard = 35,
+    CavalryArcher = 36,
+    DoppelGanger = 37,
+    Invisible = 38,
+    Gate = 39,
+    // All dll names point to 5286 (not in language file help), need to investigate further
+    // Seems to be related to resource pile looking at the internal name
+    Unknown40 = 40,
+    ResourcePile = 41,
+    Relic = 42,
+    MonkWithRelic = 43,
+    GunPowderInfantry = 44,
+    Scout = 47,
+    Unkownw = 48,
+    FarmAndFishTrap = 49,
+    Packed = 51,
+    Tower = 52,
+    Hero = 53,
+    // Seems related to treb
+    TrebuchetUnknown = 54,
+    Scorpion = 55,
+    Unknown56 = 56,
+    Unknown57 = 57,
+    Sheep = 58,
+    King = 59,
+    Horse = 61,
+    None = 65535,
 }
