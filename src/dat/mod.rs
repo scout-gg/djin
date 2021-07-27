@@ -193,6 +193,10 @@ mod test {
         assert_that(&dat_file.sound_table.sounds).has_length(685);
         assert_that(&dat_file.civilization_table.civilizations).has_length(38);
 
+        // Effects
+        assert_that(&dat_file.effect_table.effects.len()).is_equal_to(&dat_file.tech_table.techs.len());
+
+
         // Tech
         let fletching = dat_file
             .tech_table
