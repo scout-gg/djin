@@ -67,12 +67,14 @@ pub enum ResourceUsageType {
     /// A town center slot either in dark age (UNKOWN RTWC1X) or in feudal age for Cumans (UNKOWN RTWC2X)
     TownCenter = 218,
     /// Also for Elite Kipchak and Urus Khan, decrease the number of available unit (10 For Kipchak)
-    TeamBonusCounter,
+    // TODO: Double check
+    TeamBonusCounter = 242,
     // We cannot use i16 as enum discriminant but this is actually -1
     /// This can be ignored
     None = 65535,
 }
 
+#[derive(Debug)]
 pub struct DatFile {
     pub game_version: GameVersion,
     pub terrain_header: TerrainHeader,
@@ -174,24 +176,23 @@ mod test {
         assert_that(&dat_file.game_version.game_version).is_equal_to("VER 7.4\0".to_string());
 
         // Terrain Header
-        assert_that(&dat_file.terrain_header.terrain_restriction_size).is_equal_to(31);
-        assert_that(&dat_file.terrain_header.restriction_size).is_equal_to(110);
-        assert_that(&dat_file.terrain_header.terrain_restriction_size).is_equal_to(31);
-        assert_that(&dat_file.terrain_header.terrain_tables_pointer).has_length(31);
-        assert_that(&dat_file.terrain_header.terrains_pointer).has_length(31);
+        assert_that(&dat_file.terrain_header.terrain_restriction_size).is_equal_to(32);
+        assert_that(&dat_file.terrain_header.restriction_size).is_equal_to(112);
+        assert_that(&dat_file.terrain_header.terrain_tables_pointer).has_length(32);
+        assert_that(&dat_file.terrain_header.terrains_pointer).has_length(32);
 
         // Terrain restrictions
-        assert_that(&dat_file.terrain_restrictions.inner).has_length(31);
+        assert_that(&dat_file.terrain_restrictions.inner).has_length(32);
 
         dat_file.terrain_restrictions.inner.iter().for_each(|el| {
-            assert_that(&el.pass_graphics).has_length(110);
-            assert_that(&el.passability).has_length(110);
+            assert_that(&el.pass_graphics).has_length(112);
+            assert_that(&el.passability).has_length(112);
         });
 
         // Colors
         assert_that(&dat_file.color_table.colors).has_length(16);
         assert_that(&dat_file.sound_table.sounds).has_length(685);
-        assert_that(&dat_file.civilization_table.civilizations).has_length(38);
+        assert_that(&dat_file.civilization_table.civilizations).has_length(40);
 
         // Effects
         assert_that(&dat_file.effect_table.effects.len()).is_equal_to(&dat_file.tech_table.techs.len());

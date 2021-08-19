@@ -30,14 +30,14 @@ impl TerrainRestrictions {
         restriction_size: usize,
         settings: &Settings,
     ) -> Self {
-        debug_assert_eq!(terrain_restriction_size, 31);
-        debug_assert_eq!(restriction_size, 110);
+        debug_assert_eq!(terrain_restriction_size, 32);
+        debug_assert_eq!(restriction_size, 112);
         let mut restrictions = Vec::with_capacity(terrain_restriction_size);
         for _ in 0..terrain_restriction_size {
             restrictions.push(TerrainRestriction::read(buf, restriction_size, settings));
         }
 
-        debug_assert_eq!(restrictions.len(), 31);
+        debug_assert_eq!(restrictions.len(), 32);
 
         TerrainRestrictions {
             inner: restrictions,
@@ -53,12 +53,12 @@ pub struct TerrainRestriction {
 
 impl TerrainRestriction {
     pub fn read(buf: &mut (impl Read + Buf), len: usize, settings: &Settings) -> Self {
-        debug_assert_eq!(len, 110);
+        debug_assert_eq!(len, 112);
         let mut passability = Vec::with_capacity(len);
         for _ in 0..len {
             passability.push(buf.get_f32_le());
         }
-        debug_assert_eq!(passability.len(), 110);
+        debug_assert_eq!(passability.len(), 112);
 
         let mut pass_graphics = Vec::with_capacity(len);
         for _ in 0..len {
@@ -67,7 +67,7 @@ impl TerrainRestriction {
             pass_graphics.push(pass_graphic);
         }
 
-        debug_assert_eq!(passability.len(), 110);
+        debug_assert_eq!(passability.len(), 112);
 
         TerrainRestriction {
             passability,
